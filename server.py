@@ -18,12 +18,16 @@ def index():
 
 @app.route("/sms", methods=['GET', 'POST'])
 def sms_ahoy_reply():
-    """Respond to incoming messages with a friendly SMS."""
+    """Dynamically respond to incoming messages depending on the country of origin."""
+
+    # determine the country where the text is coming from
+    from_country = request.values.get('FromCountry', None)
+
     # Start our response
     resp = MessagingResponse()
 
     # Add a message
-    resp.message("Ahoy! Thanks so much for your message.")
+    resp.message("Hi! It looks like you're calling from " + from_country)
 
     return str(resp)
 
